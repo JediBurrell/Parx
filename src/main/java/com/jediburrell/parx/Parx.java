@@ -221,6 +221,20 @@ public class Parx {
 			}
 		}
 
+		a = ""+xpp.getAttributeValue(null, "textSize");
+		Log.d(LOG_TAG, "textSize:"+a);
+
+		if(a.length()>0&&!a.equals("null")){
+			if(a.contains("sp")){
+				((TextView)v).setTextSize(Integer.parseInt(a.replace("sp", ""))*
+						Resources.getSystem().getDisplayMetrics().scaledDensity);
+			}else if(a.contains("dp")){
+				((TextView)v).setTextSize(Integer.parseInt(a.replace("dp", ""))*
+						Resources.getSystem().getDisplayMetrics().density);
+			}else if(a.contains("px")){
+				((TextView)v).setTextSize(Integer.parseInt(a.replace("px", "")));
+			}
+		}
 
 		return v;
 	}
