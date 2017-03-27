@@ -45,6 +45,6 @@ Otherwise, you'll want to call `parx.getIds()`. This returns a map with the name
 
 If you'd like to contribute, simply create a pull request.
 
-The main code is already set up, adding support for unsupported tags and attributes would be extremely helpful.
+The main code is already set up, adding support for any of the unsupported tags and attributes would be extremely helpful.
 
 Please try to stick to the existing coding style.
