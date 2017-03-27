@@ -236,7 +236,45 @@ public class Parx {
 			}
 		}
 
+		a = ""+xpp.getAttributeValue(null, "alignParentStart");
+		if(a=="true") addOrRemoveProperty(v, RelativeLayout.ALIGN_PARENT_START, true);
+
+		a = ""+xpp.getAttributeValue(null, "alignParentEnd");
+		if(a=="true") addOrRemoveProperty(v, RelativeLayout.ALIGN_PARENT_END, true);
+
+		a = ""+xpp.getAttributeValue(null, "alignParentBottom");
+		if(a=="true") addOrRemoveProperty(v, RelativeLayout.ALIGN_PARENT_BOTTOM, true);
+
+		a = ""+xpp.getAttributeValue(null, "alignParentLeft");
+		if(a=="true") addOrRemoveProperty(v, RelativeLayout.ALIGN_PARENT_LEFT, true);
+
+		a = ""+xpp.getAttributeValue(null, "alignParentRight");
+		if(a=="true") addOrRemoveProperty(v, RelativeLayout.ALIGN_PARENT_RIGHT, true);
+
+		a = ""+xpp.getAttributeValue(null, "alignParentTop");
+		if(a=="true") addOrRemoveProperty(v, RelativeLayout.ALIGN_PARENT_TOP, true);
+
+		a = ""+xpp.getAttributeValue(null, "centerInParent");
+		if(a=="true") addOrRemoveProperty(v, RelativeLayout.CENTER_IN_PARENT, true);
+
+		a = ""+xpp.getAttributeValue(null, "centerHorizontal");
+		if(a=="true") addOrRemoveProperty(v, RelativeLayout.CENTER_HORIZONTAL, true);
+
+		a = ""+xpp.getAttributeValue(null, "centerVertical");
+		if(a=="true") addOrRemoveProperty(v, RelativeLayout.CENTER_VERTICAL, true);
+
 		return v;
+	}
+
+	// Thanks Hiren Patel
+	private void addOrRemoveProperty(View view, int property, boolean flag){
+		RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
+		if(flag){
+			layoutParams.addRule(property);
+		}else {
+			layoutParams.removeRule(property);
+		}
+		view.setLayoutParams(layoutParams);
 	}
 
 }
