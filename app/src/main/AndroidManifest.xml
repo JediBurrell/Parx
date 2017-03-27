@@ -16,6 +16,10 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name=".WithParx">
+        </activity>
+        <activity android:name=".WithoutParx">
+        </activity>
     </application>
 
 </manifest>

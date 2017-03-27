@@ -209,6 +209,28 @@ public class Parx {
 			}
 		}
 
+		a = ""+xpp.getAttributeValue(null, "padding");
+		if(logging) Log.d(LOG_TAG, "padding:"+a);
+
+		if(a.length()>0&&!a.equals("null")){
+			if(a.endsWith("px")){
+				v.setPadding(Integer.parseInt(a.replace("px", "")),
+						Integer.parseInt(a.replace("px", "")),
+						Integer.parseInt(a.replace("px", "")),
+						Integer.parseInt(a.replace("px", ""))
+						);
+			}else if(a.endsWith("dp")){
+				v.setPadding((int) (Integer.parseInt(a.replace("px", "")) * Resources.getSystem().getDisplayMetrics().density),
+						(int) (Integer.parseInt(a.replace("px", ""))
+								* Resources.getSystem().getDisplayMetrics().density),
+						(int) (Integer.parseInt(a.replace("px", ""))
+								* Resources.getSystem().getDisplayMetrics().density),
+						(int) (Integer.parseInt(a.replace("px", ""))
+								* Resources.getSystem().getDisplayMetrics().density)
+				);
+			}
+		}
+
 		a = ""+xpp.getAttributeValue(null, "text");
 		if(logging) Log.d(LOG_TAG, "text:"+a);
 
