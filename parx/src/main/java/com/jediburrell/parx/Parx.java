@@ -278,14 +278,27 @@ public class Parx {
 	}
 
 	// Thanks Hiren Patel
+	// Here's a hackish way to make it work.
 	private void addOrRemoveProperty(View view, int property, boolean flag){
-		RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
+		RelativeLayout relativeLayout = null;
+		RelativeLayout.LayoutParams layoutParams;
+		if(view instanceof RelativeLayout){
+			layoutParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
+		}else {
+			relativeLayout = new RelativeLayout(ctx);
+			layoutParams = (RelativeLayout.LayoutParams) relativeLayout.getLayoutParams();
+		}
 		if(flag){
 			layoutParams.addRule(property);
 		}else {
 			layoutParams.removeRule(property);
 		}
-		view.setLayoutParams(layoutParams);
+		if(relativeLayout!=null) {
+			relativeLayout.setLayoutParams(layoutParams);
+			relativeLayout.addView(view);
+		}else{
+			view.setLayoutParams(layoutParams);
+		}
 	}
 
 }
