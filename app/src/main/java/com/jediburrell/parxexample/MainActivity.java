@@ -3,6 +3,7 @@ package com.jediburrell.parxexample;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.jediburrell.parx.Parx;
 
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
 		Parx parx = new Parx(this);
 		ViewGroup viewGroup = (ViewGroup) findViewById(android.R.id.content);
 		try {
+			long time = System.currentTimeMillis();
 			viewGroup.addView(
 
 					parx.parx("<RelativeLayout\n" +
@@ -28,13 +30,16 @@ public class MainActivity extends AppCompatActivity {
 							"    android:layout_height=\"match_parent\">\n" +
 							"\n" +
 							"    <TextView\n" +
+							"		 android:id=\"@+id/time\"" +
 							"        android:layout_width=\"wrap_content\"\n" +
 							"        android:layout_height=\"wrap_content\"\n" +
 							"		 android:centerInParent=\"true\"" +
-							"        android:text=\"Test :DDD!\"\n/>" +
+							"        android:text=\"Placeholder!\"\n/>" +
 							"\n" +
 							"</RelativeLayout>\n")
 			);
+			long timeAfter = System.currentTimeMillis()-time;
+			((TextView)findViewById(parx.getIds().get("time"))).setText(timeAfter+"ms");
 		} catch (XmlPullParserException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

@@ -256,37 +256,44 @@ public class Parx {
 		if(logging) Log.d(LOG_TAG, "alignParentStart:"+a);
 		if(a.equals("true")) addOrRemoveProperty(v, RelativeLayout.ALIGN_PARENT_START, true);
 
-		a = ""+xpp.getAttributeValue(null, "alignParentEnd");
+		a = ""+xpp.getAttributeValue(null, "layout_alignParentEnd");
 		if(logging) Log.d(LOG_TAG, "alignParentEnd:"+a);
 		if(a.equals("true")) addOrRemoveProperty(v, RelativeLayout.ALIGN_PARENT_END, true);
 
-		a = ""+xpp.getAttributeValue(null, "alignParentBottom");
+		a = ""+xpp.getAttributeValue(null, "layout_alignParentBottom");
 		if(logging) Log.d(LOG_TAG, "alignParentBottom:"+a);
 		if(a.equals("true")) addOrRemoveProperty(v, RelativeLayout.ALIGN_PARENT_BOTTOM, true);
 
-		a = ""+xpp.getAttributeValue(null, "alignParentLeft");
+		a = ""+xpp.getAttributeValue(null, "layout_alignParentLeft");
 		if(logging) Log.d(LOG_TAG, "alignParentLeft:"+a);
 		if(a.equals("true")) addOrRemoveProperty(v, RelativeLayout.ALIGN_PARENT_LEFT, true);
 
-		a = ""+xpp.getAttributeValue(null, "alignParentRight");
+		a = ""+xpp.getAttributeValue(null, "layout_alignParentRight");
 		if(logging) Log.d(LOG_TAG, "alignParentRight:"+a);
 		if(a.equals("true")) addOrRemoveProperty(v, RelativeLayout.ALIGN_PARENT_RIGHT, true);
 
-		a = ""+xpp.getAttributeValue(null, "alignParentTop");
+		a = ""+xpp.getAttributeValue(null, "layout_alignParentTop");
 		if(logging) Log.d(LOG_TAG, "alignParentTop:"+a);
 		if(a.equals("true")) addOrRemoveProperty(v, RelativeLayout.ALIGN_PARENT_TOP, true);
 
-		a = ""+xpp.getAttributeValue(null, "centerInParent");
+		a = ""+xpp.getAttributeValue(null, "layout_centerInParent");
 		if(logging) Log.d(LOG_TAG, "centerInParent:"+a);
 		if(a.equals("true")) addOrRemoveProperty(v, RelativeLayout.CENTER_IN_PARENT, true);
 
-		a = ""+xpp.getAttributeValue(null, "centerHorizontal");
+		a = ""+xpp.getAttributeValue(null, "layout_centerHorizontal");
 		if(logging) Log.d(LOG_TAG, "centerHorizontal:"+a);
 		if(a.equals("true")) addOrRemoveProperty(v, RelativeLayout.CENTER_HORIZONTAL, true);
 
-		a = ""+xpp.getAttributeValue(null, "centerVertical");
+		a = ""+xpp.getAttributeValue(null, "layout_centerVertical");
 		if(logging) Log.d(LOG_TAG, "centerVertical:"+a);
 		if(a.equals("true")) addOrRemoveProperty(v, RelativeLayout.CENTER_VERTICAL, true);
+
+		a = ""+xpp.getAttributeValue(null, "orientation");
+		if(logging) Log.d(LOG_TAG, "orientation:"+a);
+		if(a.equals("vertical"))
+			((LinearLayout)v).setOrientation(LinearLayout.VERTICAL);
+		else if(a.equals("horizontal"))
+			((LinearLayout)v).setOrientation(LinearLayout.HORIZONTAL);
 
 		return v;
 	}
