@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
 							"    xmlns:android=\"http://schemas.android.com/apk/res/android\"\n" +
 							"    android:layout_width=\"match_parent\"\n" +
 							"    android:layout_height=\"match_parent\"\n" +
-							"    android:orientation=\"vertical\">\n" +
 							"\n" +
 							"    <LinearLayout\n" +
 							"        android:layout_width=\"match_parent\"\n" +

@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -103,6 +104,11 @@ public class Parx {
 			case "TextView": {
 				TextView v = new TextView(ctx);
 				v = (TextView) parseAttributes(v, xpp);
+				return v;
+			}
+			case "Button": {
+				Button v = new Button(ctx);
+				v = (Button) parseAttributes(v, xpp);
 				return v;
 			}
 
