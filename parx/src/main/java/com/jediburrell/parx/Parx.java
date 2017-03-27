@@ -63,7 +63,7 @@ public class Parx {
 				View v = parseTag(xpp);
 				if(v!=null) {
 					if (!views.isEmpty())
-						((ViewGroup) views.getLast()).addView(v);
+						((ViewGroup) views.getLast()).addView(v.getRootView());
 					views.add(v);
 				}
 			} else if(eventType == XmlPullParser.END_TAG) {
@@ -235,6 +235,20 @@ public class Parx {
 						Resources.getSystem().getDisplayMetrics().density);
 			}else if(a.contains("px")){
 				((TextView)v).setTextSize(Integer.parseInt(a.replace("px", "")));
+			}
+		}
+
+		a = ""+xpp.getAttributeValue(null, "textColor");
+		if(logging) Log.d(LOG_TAG, "textColor:"+a);
+
+		if(a.length()>0&&!a.equals("null")){
+			if(a.contains("@color/")){
+				int drawable = ctx.getResources().getIdentifier(a.replace("@", ""),
+						null, ctx.getPackageName());
+
+				((TextView)v).setTextColor(ctx.getResources().getColor(drawable));
+			}else if(a.contains("#")){
+				((TextView)v).setTextColor(Color.parseColor(a));
 			}
 		}
 
