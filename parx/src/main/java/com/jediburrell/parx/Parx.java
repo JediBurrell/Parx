@@ -286,7 +286,8 @@ public class Parx {
 			layoutParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
 		}else {
 			relativeLayout = new RelativeLayout(ctx);
-			layoutParams = (RelativeLayout.LayoutParams) relativeLayout.getLayoutParams();
+			layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
+					RelativeLayout.LayoutParams.WRAP_CONTENT);
 		}
 		if(flag){
 			layoutParams.addRule(property);
