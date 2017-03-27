@@ -1,4 +1,6 @@
 # Parx
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![](https://jitpack.io/v/JediBurrell/Parx.svg)](https://jitpack.io/#JediBurrell/Parx)
+
 A dynamic XML parser for Android.
 
 **Installation**
