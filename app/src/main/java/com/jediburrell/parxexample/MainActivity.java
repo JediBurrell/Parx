@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
 		try {
 			viewGroup.addView(
 
-					parx.parx("<LinearLayout\n" +
+					parx.parx("<RelativeLayout\n" +
 							"	 xmlns:android=\"http://schemas.android.com/apk/res/android\"" +
 							"    android:layout_width=\"match_parent\"\n" +
 							"    android:layout_height=\"match_parent\">\n" +
@@ -30,9 +30,10 @@ public class MainActivity extends AppCompatActivity {
 							"    <TextView\n" +
 							"        android:layout_width=\"wrap_content\"\n" +
 							"        android:layout_height=\"wrap_content\"\n" +
+							"		 android:centerInParent=\"true\"" +
 							"        android:text=\"Test :DDD!\"\n/>" +
 							"\n" +
-							"</LinearLayout>\n")
+							"</RelativeLayout>\n")
 			);
 		} catch (XmlPullParserException e) {
 			e.printStackTrace();

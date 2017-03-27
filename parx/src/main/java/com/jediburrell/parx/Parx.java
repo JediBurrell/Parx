@@ -29,11 +29,13 @@ import java.util.Random;
 
 public class Parx {
 
-	String LOG_TAG = "Parx";
+	private String LOG_TAG = "Parx";
 
-	Context ctx;
-	LinkedList<View> views = new LinkedList<View>();
-	Map<String, Integer> ids = new HashMap<String, Integer>();
+	private Context ctx;
+	private LinkedList<View> views = new LinkedList<View>();
+	private Map<String, Integer> ids = new HashMap<String, Integer>();
+
+	private boolean logging = true;
 
 	public Parx(Context ctx){
 		this.ctx = ctx;
@@ -55,9 +57,9 @@ public class Parx {
 		while (eventType != XmlPullParser.END_DOCUMENT) {
 			xpp.getPrefix();
 			if(eventType == XmlPullParser.START_DOCUMENT) {
-				Log.d(LOG_TAG, "Parsing document");
+				if(logging) Log.d(LOG_TAG, "Parsing document");
 			} else if(eventType == XmlPullParser.START_TAG) {
-				Log.d(LOG_TAG, "Tag opened: " + xpp.getName());
+				if(logging) Log.d(LOG_TAG, "Tag opened: " + xpp.getName());
 				View v = parseTag(xpp);
 				if(v!=null) {
 					if (!views.isEmpty())
@@ -67,7 +69,7 @@ public class Parx {
 			} else if(eventType == XmlPullParser.END_TAG) {
 				if(views.size()>1)
 					views.removeLast();
-				Log.d(LOG_TAG,"Tag closed "+xpp.getName());
+				if(logging) Log.d(LOG_TAG,"Tag closed "+xpp.getName());
 			}
 			eventType = xpp.next();
 		}
@@ -123,7 +125,7 @@ public class Parx {
 		}
 
 		a = ""+xpp.getAttributeValue(null, "background");
-		Log.d(LOG_TAG, "background:"+a);
+		if(logging) Log.d(LOG_TAG, "background:"+a);
 
 		if(a.length()>0&&!a.equals("null")){
 			if(a.contains("@drawable/")){
@@ -142,7 +144,7 @@ public class Parx {
 		}
 
 		a = ""+xpp.getAttributeValue(null, "src");
-		Log.d(LOG_TAG, "src:"+a);
+		if(logging) Log.d(LOG_TAG, "src:"+a);
 
 		if(a.length()>0&&!a.equals("null")){
 			if(a.contains("@drawable/")){
@@ -156,7 +158,7 @@ public class Parx {
 		}
 
 		a = ""+xpp.getAttributeValue(null, "layout_height");
-		Log.d(LOG_TAG, "layout_height:"+a);
+		if(logging) Log.d(LOG_TAG, "layout_height:"+a);
 
 		if(a.length()>0&&!a.equals("null")){
 			if(a=="match_parent"||a=="fill_parent"){
@@ -182,7 +184,7 @@ public class Parx {
 		}
 
 		a = ""+xpp.getAttributeValue(null, "layout_width");
-		Log.d(LOG_TAG, "layout_width:"+a);
+		if(logging) Log.d(LOG_TAG, "layout_width:"+a);
 
 		if(a.length()>0&&!a.equals("null")){
 			if(a=="match_parent"||a=="fill_parent"){
@@ -208,7 +210,7 @@ public class Parx {
 		}
 
 		a = ""+xpp.getAttributeValue(null, "text");
-		Log.d(LOG_TAG, "text:"+a);
+		if(logging) Log.d(LOG_TAG, "text:"+a);
 
 		if(a.length()>0&&!a.equals("null")){
 			if(a.contains("@string/")){
@@ -222,7 +224,7 @@ public class Parx {
 		}
 
 		a = ""+xpp.getAttributeValue(null, "textSize");
-		Log.d(LOG_TAG, "textSize:"+a);
+		if(logging) Log.d(LOG_TAG, "textSize:"+a);
 
 		if(a.length()>0&&!a.equals("null")){
 			if(a.contains("sp")){
@@ -237,31 +239,40 @@ public class Parx {
 		}
 
 		a = ""+xpp.getAttributeValue(null, "alignParentStart");
-		if(a=="true") addOrRemoveProperty(v, RelativeLayout.ALIGN_PARENT_START, true);
+		if(logging) Log.d(LOG_TAG, "alignParentStart:"+a);
+		if(a.equals("true")) addOrRemoveProperty(v, RelativeLayout.ALIGN_PARENT_START, true);
 
 		a = ""+xpp.getAttributeValue(null, "alignParentEnd");
-		if(a=="true") addOrRemoveProperty(v, RelativeLayout.ALIGN_PARENT_END, true);
+		if(logging) Log.d(LOG_TAG, "alignParentEnd:"+a);
+		if(a.equals("true")) addOrRemoveProperty(v, RelativeLayout.ALIGN_PARENT_END, true);
 
 		a = ""+xpp.getAttributeValue(null, "alignParentBottom");
-		if(a=="true") addOrRemoveProperty(v, RelativeLayout.ALIGN_PARENT_BOTTOM, true);
+		if(logging) Log.d(LOG_TAG, "alignParentBottom:"+a);
+		if(a.equals("true")) addOrRemoveProperty(v, RelativeLayout.ALIGN_PARENT_BOTTOM, true);
 
 		a = ""+xpp.getAttributeValue(null, "alignParentLeft");
-		if(a=="true") addOrRemoveProperty(v, RelativeLayout.ALIGN_PARENT_LEFT, true);
+		if(logging) Log.d(LOG_TAG, "alignParentLeft:"+a);
+		if(a.equals("true")) addOrRemoveProperty(v, RelativeLayout.ALIGN_PARENT_LEFT, true);
 
 		a = ""+xpp.getAttributeValue(null, "alignParentRight");
-		if(a=="true") addOrRemoveProperty(v, RelativeLayout.ALIGN_PARENT_RIGHT, true);
+		if(logging) Log.d(LOG_TAG, "alignParentRight:"+a);
+		if(a.equals("true")) addOrRemoveProperty(v, RelativeLayout.ALIGN_PARENT_RIGHT, true);
 
 		a = ""+xpp.getAttributeValue(null, "alignParentTop");
-		if(a=="true") addOrRemoveProperty(v, RelativeLayout.ALIGN_PARENT_TOP, true);
+		if(logging) Log.d(LOG_TAG, "alignParentTop:"+a);
+		if(a.equals("true")) addOrRemoveProperty(v, RelativeLayout.ALIGN_PARENT_TOP, true);
 
 		a = ""+xpp.getAttributeValue(null, "centerInParent");
-		if(a=="true") addOrRemoveProperty(v, RelativeLayout.CENTER_IN_PARENT, true);
+		if(logging) Log.d(LOG_TAG, "centerInParent:"+a);
+		if(a.equals("true")) addOrRemoveProperty(v, RelativeLayout.CENTER_IN_PARENT, true);
 
 		a = ""+xpp.getAttributeValue(null, "centerHorizontal");
-		if(a=="true") addOrRemoveProperty(v, RelativeLayout.CENTER_HORIZONTAL, true);
+		if(logging) Log.d(LOG_TAG, "centerHorizontal:"+a);
+		if(a.equals("true")) addOrRemoveProperty(v, RelativeLayout.CENTER_HORIZONTAL, true);
 
 		a = ""+xpp.getAttributeValue(null, "centerVertical");
-		if(a=="true") addOrRemoveProperty(v, RelativeLayout.CENTER_VERTICAL, true);
+		if(logging) Log.d(LOG_TAG, "centerVertical:"+a);
+		if(a.equals("true")) addOrRemoveProperty(v, RelativeLayout.CENTER_VERTICAL, true);
 
 		return v;
 	}
