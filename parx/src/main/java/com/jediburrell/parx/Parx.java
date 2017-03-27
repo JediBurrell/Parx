@@ -226,12 +226,12 @@ public class Parx {
 						Integer.parseInt(a.replace("px", ""))
 						);
 			}else if(a.endsWith("dp")){
-				v.setPadding((int) (Integer.parseInt(a.replace("px", "")) * Resources.getSystem().getDisplayMetrics().density),
-						(int) (Integer.parseInt(a.replace("px", ""))
+				v.setPadding((int) (Integer.parseInt(a.replace("dp", "")) * Resources.getSystem().getDisplayMetrics().density),
+						(int) (Integer.parseInt(a.replace("dp", ""))
 								* Resources.getSystem().getDisplayMetrics().density),
-						(int) (Integer.parseInt(a.replace("px", ""))
+						(int) (Integer.parseInt(a.replace("dp", ""))
 								* Resources.getSystem().getDisplayMetrics().density),
-						(int) (Integer.parseInt(a.replace("px", ""))
+						(int) (Integer.parseInt(a.replace("dp", ""))
 								* Resources.getSystem().getDisplayMetrics().density)
 				);
 			}

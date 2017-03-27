@@ -30,12 +30,12 @@ public class MainActivity extends AppCompatActivity {
 					parx.parx("<RelativeLayout\n" +
 							"    xmlns:android=\"http://schemas.android.com/apk/res/android\"\n" +
 							"    android:layout_width=\"match_parent\"\n" +
-							"    android:layout_height=\"match_parent\"\n" +
+							"    android:layout_height=\"match_parent\">\n" +
 							"\n" +
 							"    <LinearLayout\n" +
 							"        android:layout_width=\"match_parent\"\n" +
-							"        android:layout_height=\"wrap_content\">\n" +
-							"		 android:orientation=\"vertical\"" +
+							"        android:layout_height=\"wrap_content\"\n" +
+							"		 android:orientation=\"vertical\">" +
 							"\n" +
 							"        <Button\n" +
 							"            android:id=\"@+id/with\"\n" +
@@ -56,8 +56,8 @@ public class MainActivity extends AppCompatActivity {
 							"        android:layout_height=\"wrap_content\"\n" +
 							"        android:src=\"@drawable/parx_load\"\n" +
 							"        android:layout_alignParentBottom=\"true\"\n" +
-							"        android:layout_centerHorizontal=\"true\"/>\n" +
-							"		 android:padding=\"16dp\"" +
+							"        android:layout_centerHorizontal=\"true\"\n" +
+							"		 android:padding=\"16dp\"/>" +
 							"\n" +
 							"</RelativeLayout>\n")
 			);
