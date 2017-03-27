@@ -18,7 +18,7 @@ In your app's build.grade:
 
 	dependencies {
 		...
-		compile 'com.github.JediBurrell:Parx:-SNAPSHOT'
+		compile 'com.jediburrell:parx:-SNAPSHOT'
 	}
 
 **Using**
