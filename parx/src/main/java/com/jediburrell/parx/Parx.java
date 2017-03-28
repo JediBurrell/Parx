@@ -101,7 +101,7 @@ public class Parx {
 			case "ImageView": {
 				ImageView v = new ImageView(ctx);
 				v = (ImageView) parseAttributes(v, xpp);
-				v.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+				v.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
 				return v;
 			}
 			case "TextView": {
@@ -176,21 +176,25 @@ public class Parx {
 				ViewGroup.LayoutParams newLayoutParams = v.getLayoutParams();
 				newLayoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
 				v.setLayoutParams(newLayoutParams);
+				v.requestLayout();
 			}else if(a=="wrap_content"){
 				ViewGroup.LayoutParams newLayoutParams = v.getLayoutParams();
 				newLayoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
 				v.setLayoutParams(newLayoutParams);
+				v.requestLayout();
 			}else if(a.endsWith("px")){
 				ViewGroup.LayoutParams newLayoutParams = v.getLayoutParams();
 				ViewGroup.LayoutParams newerLP = new ViewGroup.LayoutParams(newLayoutParams.width,
 						Integer.parseInt(a.replace("px", "")));
 				v.setLayoutParams(newerLP);
+				v.requestLayout();
 			}else if(a.endsWith("dp")){
 				ViewGroup.LayoutParams newLayoutParams = v.getLayoutParams();
 				ViewGroup.LayoutParams newerLP = new ViewGroup.LayoutParams(newLayoutParams.width,
 						(int) (Integer.parseInt(a.replace("dp", "")) *
 								Resources.getSystem().getDisplayMetrics().density));
 				v.setLayoutParams(newerLP);
+				v.requestLayout();
 			}
 		}
 
@@ -202,21 +206,25 @@ public class Parx {
 				ViewGroup.LayoutParams newLayoutParams = v.getLayoutParams();
 				newLayoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
 				v.setLayoutParams(newLayoutParams);
+				v.requestLayout();
 			}else if(a=="wrap_content"){
 				ViewGroup.LayoutParams newLayoutParams = v.getLayoutParams();
 				newLayoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT;
 				v.setLayoutParams(newLayoutParams);
+				v.requestLayout();
 			}else if(a.endsWith("px")){
 				ViewGroup.LayoutParams newLayoutParams = v.getLayoutParams();
 				ViewGroup.LayoutParams newerLP = new ViewGroup.LayoutParams(Integer.parseInt(a.replace("px", "")),
 						newLayoutParams.height);
 				v.setLayoutParams(newerLP);
+				v.requestLayout();
 			}else if(a.endsWith("dp")){
 				ViewGroup.LayoutParams newLayoutParams = v.getLayoutParams();
 				ViewGroup.LayoutParams newerLP = new ViewGroup.LayoutParams(
 						(int) (Integer.parseInt(a.replace("dp", "")) *
 								Resources.getSystem().getDisplayMetrics().density), newLayoutParams.height);
 				v.setLayoutParams(newerLP);
+				v.requestLayout();
 			}
 		}
 
