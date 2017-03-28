@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 							"\n" +
 							"    <ImageView\n" +
 							"        android:layout_width=\"wrap_content\"\n" +
-							"        android:layout_height=\"40dp\"\n" +
+							"        android:layout_height=\"50dp\"\n" +
 							"        android:src=\"@drawable/parx_load\"\n" +
 							"        android:layout_alignParentBottom=\"true\"\n" +
 							"        android:layout_centerHorizontal=\"true\"\n" +
@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
 							"\n" +
 							"</RelativeLayout>\n")
 			);
+
 			long timeAfter = System.currentTimeMillis()-time;
 			((Button)findViewById(parx.getIds().get("with"))).setOnClickListener(new View.OnClickListener() {
 				@Override

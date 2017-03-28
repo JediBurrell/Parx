@@ -31,9 +31,16 @@ public class WithParx extends AppCompatActivity {
 							"		 android:id=\"@+id/time\"" +
 							"        android:layout_width=\"wrap_content\"\n" +
 							"        android:layout_height=\"wrap_content\"\n" +
-							"		 android:centerInParent=\"true\"" +
+							"		 android:layout_centerInParent=\"true\"" +
 							"        android:text=\"Placeholder!\"\n/>" +
 							"\n" +
+							"<ImageView" +
+							"        android:layout_width=\"wrap_content\"\n" +
+							"        android:layout_height=\"50dp\"\n" +
+							"        android:src=\"@drawable/parx_load\"\n" +
+							"        android:layout_alignParentBottom=\"true\"\n" +
+							"        android:layout_centerHorizontal=\"true\"\n" +
+							"		 android:padding=\"16dp\"/>" +
 							"</RelativeLayout>\n")
 			);
 			long timeAfter = System.currentTimeMillis()-time;

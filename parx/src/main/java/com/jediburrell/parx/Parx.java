@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -86,34 +87,34 @@ public class Parx {
 
 		switch(tag){
 
+			case "ScrollView": {
+				ScrollView v = new ScrollView(ctx);
+				v = (ScrollView) parseAttributes(v, xpp);
+				return v;
+			}
 			case "LinearLayout": {
 				LinearLayout v = new LinearLayout(ctx);
 				v = (LinearLayout) parseAttributes(v, xpp);
-				v.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 				return v;
 			}
 			case "RelativeLayout": {
 				RelativeLayout v = new RelativeLayout(ctx);
 				v = (RelativeLayout) parseAttributes(v, xpp);
-				v.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 				return v;
 			}
 			case "ImageView": {
 				ImageView v = new ImageView(ctx);
 				v = (ImageView) parseAttributes(v, xpp);
-				v.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 				return v;
 			}
 			case "TextView": {
 				TextView v = new TextView(ctx);
 				v = (TextView) parseAttributes(v, xpp);
-				v.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 				return v;
 			}
 			case "Button": {
 				Button v = new Button(ctx);
 				v = (Button) parseAttributes(v, xpp);
-				v.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 				return v;
 			}
 
@@ -171,29 +172,13 @@ public class Parx {
 			}
 		}
 
-		a = ""+xpp.getAttributeValue(null, "layout_height");
-		if(logging) Log.d(LOG_TAG, "layout_height:"+a);
-
-		if(a.length()>0&&!a.equals("null")){
-			if(a=="match_parent"||a=="fill_parent"){
-				HEIGHT = ViewGroup.LayoutParams.MATCH_PARENT;
-			}else if(a=="wrap_content"){
-				HEIGHT = ViewGroup.LayoutParams.WRAP_CONTENT;
-			}else if(a.endsWith("px")){
-				HEIGHT = Integer.parseInt(a.replace("px", ""));
-			}else if(a.endsWith("dp")){
-				HEIGHT = (int) (Integer.parseInt(a.replace("dp", "")) *
-								Resources.getSystem().getDisplayMetrics().density);
-			}
-		}
-
 		a = ""+xpp.getAttributeValue(null, "layout_width");
 		if(logging) Log.d(LOG_TAG, "layout_width:"+a);
 
 		if(a.length()>0&&!a.equals("null")){
-			if(a=="match_parent"||a=="fill_parent"){
+			if(a.equals("match_parent")||a.equals("fill_parent")){
 				WIDTH = ViewGroup.LayoutParams.MATCH_PARENT;
-			}else if(a=="wrap_content"){
+			}else if(a.equals("wrap_content")){
 				WIDTH = ViewGroup.LayoutParams.WRAP_CONTENT;
 			}else if(a.endsWith("px")){
 				ViewGroup.LayoutParams newLayoutParams = v.getLayoutParams();
@@ -201,6 +186,23 @@ public class Parx {
 			}else if(a.endsWith("dp")){
 				WIDTH = (int) (Integer.parseInt(a.replace("dp", "")) *
 								Resources.getSystem().getDisplayMetrics().density);
+			}
+			if(logging) Log.d(LOG_TAG, "WIDTH SET TO: " + WIDTH);
+		}
+
+		a = ""+xpp.getAttributeValue(null, "layout_height");
+		if(logging) Log.d(LOG_TAG, "layout_height:"+a);
+
+		if(a.length()>0&&!a.equals("null")){
+			if(a.equals("match_parent")||a.equals("fill_parent")){
+				HEIGHT = ViewGroup.LayoutParams.MATCH_PARENT;
+			}else if(a.equals("wrap_content")){
+				HEIGHT = ViewGroup.LayoutParams.WRAP_CONTENT;
+			}else if(a.endsWith("px")){
+				HEIGHT = Integer.parseInt(a.replace("px", ""));
+			}else if(a.endsWith("dp")){
+				HEIGHT = (int) (Integer.parseInt(a.replace("dp", "")) *
+						Resources.getSystem().getDisplayMetrics().density);
 			}
 		}
 
