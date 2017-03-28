@@ -344,6 +344,9 @@ public class Parx {
 			layoutParams.removeRule(property);
 		}
 		if(relativeLayout!=null) {
+			ViewGroup root = (ViewGroup) view.getRootView();
+			if(root!=null)
+				root.removeView(view);
 			relativeLayout.setLayoutParams(layoutParams);
 			relativeLayout.addView(view);
 		}else{
