@@ -101,7 +101,7 @@ public class Parx {
 			case "ImageView": {
 				ImageView v = new ImageView(ctx);
 				v = (ImageView) parseAttributes(v, xpp);
-				v.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+				v.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 				return v;
 			}
 			case "TextView": {
