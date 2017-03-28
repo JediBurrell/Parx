@@ -333,10 +333,12 @@ public class Parx {
 		RelativeLayout.LayoutParams layoutParams;
 		if(view instanceof RelativeLayout){
 			layoutParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
-		}else {
-			relativeLayout = new RelativeLayout(ctx);
-			layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
-					RelativeLayout.LayoutParams.WRAP_CONTENT);
+		}else if(view.getRootView() instanceof  RelativeLayout) {
+			layoutParams = (RelativeLayout.LayoutParams) view.getRootView().getLayoutParams();
+		} else {
+				relativeLayout = new RelativeLayout(ctx);
+				layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
+						RelativeLayout.LayoutParams.WRAP_CONTENT);
 		}
 		if(flag){
 			layoutParams.addRule(property);
@@ -347,7 +349,7 @@ public class Parx {
 			relativeLayout.setLayoutParams(layoutParams);
 			relativeLayout.addView(view);
 		}else{
-			view.setLayoutParams(layoutParams);
+			view.getRootView().setLayoutParams(layoutParams);
 		}
 	}
 
