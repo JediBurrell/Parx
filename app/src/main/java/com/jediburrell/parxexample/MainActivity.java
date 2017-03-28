@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 							"\n" +
 							"    <ImageView\n" +
 							"        android:layout_width=\"wrap_content\"\n" +
-							"        android:layout_height=\"wrap_content\"\n" +
+							"        android:layout_height=\"40dp\"\n" +
 							"        android:src=\"@drawable/parx_load\"\n" +
 							"        android:layout_alignParentBottom=\"true\"\n" +
 							"        android:layout_centerHorizontal=\"true\"\n" +

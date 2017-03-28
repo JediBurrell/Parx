@@ -89,26 +89,31 @@ public class Parx {
 			case "LinearLayout": {
 				LinearLayout v = new LinearLayout(ctx);
 				v = (LinearLayout) parseAttributes(v, xpp);
+				v.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 				return v;
 			}
 			case "RelativeLayout": {
 				RelativeLayout v = new RelativeLayout(ctx);
 				v = (RelativeLayout) parseAttributes(v, xpp);
+				v.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 				return v;
 			}
 			case "ImageView": {
 				ImageView v = new ImageView(ctx);
 				v = (ImageView) parseAttributes(v, xpp);
+				v.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 				return v;
 			}
 			case "TextView": {
 				TextView v = new TextView(ctx);
 				v = (TextView) parseAttributes(v, xpp);
+				v.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 				return v;
 			}
 			case "Button": {
 				Button v = new Button(ctx);
 				v = (Button) parseAttributes(v, xpp);
+				v.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 				return v;
 			}
 
