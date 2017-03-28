@@ -126,6 +126,9 @@ public class Parx {
 	// Turn back now!
 	private View parseAttributes(View v, XmlPullParser xpp){
 
+		int WIDTH = ViewGroup.LayoutParams.WRAP_CONTENT;
+		int HEIGHT = ViewGroup.LayoutParams.WRAP_CONTENT;
+
 		String a = ""+xpp.getAttributeValue(null, "id");
 
 		if(a.length()>0&&!a.equals("null")){
@@ -173,28 +176,14 @@ public class Parx {
 
 		if(a.length()>0&&!a.equals("null")){
 			if(a=="match_parent"||a=="fill_parent"){
-				ViewGroup.LayoutParams newLayoutParams = v.getLayoutParams();
-				newLayoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
-				v.setLayoutParams(newLayoutParams);
-				v.requestLayout();
+				HEIGHT = ViewGroup.LayoutParams.MATCH_PARENT;
 			}else if(a=="wrap_content"){
-				ViewGroup.LayoutParams newLayoutParams = v.getLayoutParams();
-				newLayoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-				v.setLayoutParams(newLayoutParams);
-				v.requestLayout();
+				HEIGHT = ViewGroup.LayoutParams.WRAP_CONTENT;
 			}else if(a.endsWith("px")){
-				ViewGroup.LayoutParams newLayoutParams = v.getLayoutParams();
-				ViewGroup.LayoutParams newerLP = new ViewGroup.LayoutParams(newLayoutParams.width,
-						Integer.parseInt(a.replace("px", "")));
-				v.setLayoutParams(newerLP);
-				v.requestLayout();
+				HEIGHT = Integer.parseInt(a.replace("px", ""));
 			}else if(a.endsWith("dp")){
-				ViewGroup.LayoutParams newLayoutParams = v.getLayoutParams();
-				ViewGroup.LayoutParams newerLP = new ViewGroup.LayoutParams(newLayoutParams.width,
-						(int) (Integer.parseInt(a.replace("dp", "")) *
-								Resources.getSystem().getDisplayMetrics().density));
-				v.setLayoutParams(newerLP);
-				v.requestLayout();
+				HEIGHT = (int) (Integer.parseInt(a.replace("dp", "")) *
+								Resources.getSystem().getDisplayMetrics().density);
 			}
 		}
 
@@ -203,30 +192,19 @@ public class Parx {
 
 		if(a.length()>0&&!a.equals("null")){
 			if(a=="match_parent"||a=="fill_parent"){
-				ViewGroup.LayoutParams newLayoutParams = v.getLayoutParams();
-				newLayoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
-				v.setLayoutParams(newLayoutParams);
-				v.requestLayout();
+				WIDTH = ViewGroup.LayoutParams.MATCH_PARENT;
 			}else if(a=="wrap_content"){
-				ViewGroup.LayoutParams newLayoutParams = v.getLayoutParams();
-				newLayoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT;
-				v.setLayoutParams(newLayoutParams);
-				v.requestLayout();
+				WIDTH = ViewGroup.LayoutParams.WRAP_CONTENT;
 			}else if(a.endsWith("px")){
 				ViewGroup.LayoutParams newLayoutParams = v.getLayoutParams();
-				ViewGroup.LayoutParams newerLP = new ViewGroup.LayoutParams(Integer.parseInt(a.replace("px", "")),
-						newLayoutParams.height);
-				v.setLayoutParams(newerLP);
-				v.requestLayout();
+				WIDTH = Integer.parseInt(a.replace("px", ""));
 			}else if(a.endsWith("dp")){
-				ViewGroup.LayoutParams newLayoutParams = v.getLayoutParams();
-				ViewGroup.LayoutParams newerLP = new ViewGroup.LayoutParams(
-						(int) (Integer.parseInt(a.replace("dp", "")) *
-								Resources.getSystem().getDisplayMetrics().density), newLayoutParams.height);
-				v.setLayoutParams(newerLP);
-				v.requestLayout();
+				WIDTH = (int) (Integer.parseInt(a.replace("dp", "")) *
+								Resources.getSystem().getDisplayMetrics().density);
 			}
 		}
+
+		v.setLayoutParams(new ViewGroup.LayoutParams(WIDTH, HEIGHT));
 
 		a = ""+xpp.getAttributeValue(null, "padding");
 		if(logging) Log.d(LOG_TAG, "padding:"+a);
