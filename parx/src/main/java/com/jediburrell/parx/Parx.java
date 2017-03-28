@@ -136,12 +136,12 @@ public class Parx {
 		if(a.length()>0&&!a.equals("null")){
 			if(a.contains("@drawable/")){
 				int drawable = ctx.getResources().getIdentifier(a.replace("@", ""),
-						null, ctx.getPackageName());
+						"drawable", ctx.getPackageName());
 
 				v.setBackground(ctx.getDrawable(drawable));
 			}else if(a.contains("@color/")){
 				int drawable = ctx.getResources().getIdentifier(a.replace("@", ""),
-						null, ctx.getPackageName());
+						"color", ctx.getPackageName());
 
 				v.setBackgroundColor(ctx.getResources().getColor(drawable));
 			}else if(a.contains("#")){
@@ -155,7 +155,7 @@ public class Parx {
 		if(a.length()>0&&!a.equals("null")){
 			if(a.contains("@drawable/")){
 				int drawable = ctx.getResources().getIdentifier(a.replace("@", ""),
-						null, ctx.getPackageName());
+						"drawable", ctx.getPackageName());
 
 				((ImageView)v).setImageDrawable(ctx.getDrawable(drawable));
 			}else if(a.contains("//")){
@@ -243,7 +243,7 @@ public class Parx {
 		if(a.length()>0&&!a.equals("null")){
 			if(a.contains("@string/")){
 				int string = ctx.getResources().getIdentifier(a.replace("@", ""),
-						null, ctx.getPackageName());
+						"string", ctx.getPackageName());
 
 				((TextView)v).setText(ctx.getResources().getString(string));
 			}else{
@@ -272,7 +272,7 @@ public class Parx {
 		if(a.length()>0&&!a.equals("null")){
 			if(a.contains("@color/")){
 				int drawable = ctx.getResources().getIdentifier(a.replace("@", ""),
-						null, ctx.getPackageName());
+						"color", ctx.getPackageName());
 
 				((TextView)v).setTextColor(ctx.getResources().getColor(drawable));
 			}else if(a.contains("#")){
