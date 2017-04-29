@@ -41,6 +41,10 @@ Otherwise, you'll want to call `parx.getIds()`. This returns a map with the name
 
 	findViewById(parx.getIds().get("example_id"));
 
+**Custom URI Image Interpretation**
+
+You may prefer using a custom library for loading images from a URI. Before calling `Parx#parx`, call `Parx#setCustomImageLoader` with an extension of the abstract class `Parx.ImageLoader`. Overriding `Parx.ImageLoader#onLoad` will provide you the URI as a String, as well as an ImageView.
+
 ---
 
 **Contributing**
