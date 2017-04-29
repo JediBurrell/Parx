@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +37,8 @@ public class Parx {
 	private Context ctx;
 	private LinkedList<View> views = new LinkedList<View>();
 	private Map<String, Integer> ids = new HashMap<String, Integer>();
+
+	private ImageLoader customImageLoader = null;
 
 	private boolean logging = true;
 
@@ -79,6 +82,11 @@ public class Parx {
 
 		return views.getFirst();
 
+	}
+
+	@SuppressWarnings("unused")
+	public void setCustomImageLoader(ImageLoader imageLoader){
+		this.customImageLoader = imageLoader;
 	}
 
 	private View parseTag(XmlPullParser xpp){
@@ -147,7 +155,10 @@ public class Parx {
 				int drawable = ctx.getResources().getIdentifier(a.replace("@", ""),
 						"drawable", ctx.getPackageName());
 
-				v.setBackground(ctx.getDrawable(drawable));
+				if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP)
+					v.setBackground(ctx.getResources().getDrawable(drawable));
+				else
+					v.setBackgroundDrawable(ctx.getResources().getDrawable(drawable));
 			}else if(a.contains("@color/")){
 				int drawable = ctx.getResources().getIdentifier(a.replace("@", ""),
 						"color", ctx.getPackageName());
@@ -166,9 +177,12 @@ public class Parx {
 				int drawable = ctx.getResources().getIdentifier(a.replace("@", ""),
 						"drawable", ctx.getPackageName());
 
-				((ImageView)v).setImageDrawable(ctx.getDrawable(drawable));
+				((ImageView)v).setImageDrawable(ctx.getResources().getDrawable(drawable));
 			}else if(a.contains("//")){
-				((ImageView)v).setImageURI(Uri.parse(a));
+				if(customImageLoader==null)
+					((ImageView)v).setImageURI(Uri.parse(a));
+				else
+					customImageLoader.onUrl(a);
 			}
 		}
 
@@ -336,7 +350,10 @@ public class Parx {
 		if(flag){
 			layoutParams.addRule(property);
 		}else {
-			layoutParams.removeRule(property);
+			if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.JELLY_BEAN_MR1)
+				layoutParams.removeRule(property);
+			else
+				layoutParams.addRule(property, 0);
 		}
 		if(relativeLayout!=null) {
 			relativeLayout.setLayoutParams(layoutParams);
@@ -344,6 +361,10 @@ public class Parx {
 		}else{
 			view.getRootView().setLayoutParams(layoutParams);
 		}
+	}
+
+	public abstract class ImageLoader {
+		public abstract void onUrl(String url);
 	}
 
 }
