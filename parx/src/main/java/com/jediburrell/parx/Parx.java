@@ -182,7 +182,7 @@ public class Parx {
 				if(customImageLoader==null)
 					((ImageView)v).setImageURI(Uri.parse(a));
 				else
-					customImageLoader.onUrl(a);
+					customImageLoader.onUri(a, v);
 			}
 		}
 
@@ -364,7 +364,7 @@ public class Parx {
 	}
 
 	public abstract class ImageLoader {
-		public abstract void onUrl(String url);
+		public abstract void onUri(String uri, View view);
 	}
 
 }

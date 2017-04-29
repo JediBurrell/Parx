@@ -3,6 +3,8 @@
 
 A dynamic XML parser for Android.
 
+Parx should support all the way back to Android Gingerbread 2.3, though it hasn't been tested.
+
 **Installation**
 
 In your root build.gradle (If you don't have jitpack already):
@@ -43,7 +45,7 @@ Otherwise, you'll want to call `parx.getIds()`. This returns a map with the name
 
 **Custom URI Image Interpretation**
 
-You may prefer using a custom library for loading images from a URI. Before calling `Parx#parx`, call `Parx#setCustomImageLoader` with an extension of the abstract class `Parx.ImageLoader`. Overriding `Parx.ImageLoader#onLoad` will provide you the URI as a String, as well as an ImageView.
+You may prefer using a custom library for loading images from a URI. Before calling `Parx#parx`, call `Parx#setCustomImageLoader` with an extension of the abstract class `Parx.ImageLoader`. Overriding `Parx.ImageLoader#onUri` will provide you the URI as a String, as well as an ImageView.
 
 ---
 
