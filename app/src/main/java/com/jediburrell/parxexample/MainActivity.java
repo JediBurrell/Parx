@@ -1,7 +1,7 @@
 package com.jediburrell.parxexample;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,9 +77,7 @@ public class MainActivity extends AppCompatActivity {
 					startActivity(i);
 				}
 			});
-		} catch (XmlPullParserException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
+		} catch (XmlPullParserException | IOException e) {
 			e.printStackTrace();
 		}
 	}

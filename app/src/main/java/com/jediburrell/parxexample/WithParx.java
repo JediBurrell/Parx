@@ -1,6 +1,6 @@
 package com.jediburrell.parxexample;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -45,9 +45,7 @@ public class WithParx extends AppCompatActivity {
 			);
 			long timeAfter = System.currentTimeMillis()-time;
 			((TextView)findViewById(parx.getIds().get("time"))).setText(timeAfter+"ms");
-		} catch (XmlPullParserException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
+		} catch (XmlPullParserException | IOException e) {
 			e.printStackTrace();
 		}
 	}

@@ -2,6 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Parx.iml" filepath="$PROJECT_DIR$/.idea/modules/Parx.iml" group="Parx" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Parx-app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Parx-app.iml" group="Parx/app" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/parx/Parx-parx.iml" filepath="$PROJECT_DIR$/.idea/modules/parx/Parx-parx.iml" group="Parx/parx" />
       <module fileurl="file://$PROJECT_DIR$/ParxExample.iml" filepath="$PROJECT_DIR$/ParxExample.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/parx/parx.iml" filepath="$PROJECT_DIR$/parx/parx.iml" />
