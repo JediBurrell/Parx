@@ -21,6 +21,8 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -65,7 +67,11 @@ public class Parx {
 				if(logging) Log.d(LOG_TAG, "Parsing document");
 			} else if(eventType == XmlPullParser.START_TAG) {
 				if(logging) Log.d(LOG_TAG, "Tag opened: " + xpp.getName());
-				View v = parseTag(xpp);
+				View v = null;
+				try { v = parseTag(xpp); }
+				catch (Exception e)
+					{ e.printStackTrace(); }
+
 				if(v!=null) {
 					if (!views.isEmpty())
 						((ViewGroup) views.getLast()).addView(v.getRootView());
@@ -89,47 +95,22 @@ public class Parx {
 		this.customImageLoader = imageLoader;
 	}
 
-	private View parseTag(XmlPullParser xpp){
+	private View parseTag(XmlPullParser xpp) throws Exception {
 
 		String tag = xpp.getName();
 
+		Class classType = View.class;
 		switch(tag){
-
-			case "ScrollView": {
-				ScrollView v = new ScrollView(ctx);
-				v = (ScrollView) parseAttributes(v, xpp);
-				return v;
-			}
-			case "LinearLayout": {
-				LinearLayout v = new LinearLayout(ctx);
-				v = (LinearLayout) parseAttributes(v, xpp);
-				return v;
-			}
-			case "RelativeLayout": {
-				RelativeLayout v = new RelativeLayout(ctx);
-				v = (RelativeLayout) parseAttributes(v, xpp);
-				return v;
-			}
-			case "ImageView": {
-				ImageView v = new ImageView(ctx);
-				v = (ImageView) parseAttributes(v, xpp);
-				return v;
-			}
-			case "TextView": {
-				TextView v = new TextView(ctx);
-				v = (TextView) parseAttributes(v, xpp);
-				return v;
-			}
-			case "Button": {
-				Button v = new Button(ctx);
-				v = (Button) parseAttributes(v, xpp);
-				return v;
-			}
-
+			case "ScrollView": classType = ScrollView.class; break;
+			case "LinearLayout": classType = LinearLayout.class; break;
+			case "RelativeLayout": classType = RelativeLayout.class; break;
+			case "ImageView": classType = ImageView.class; break;
+			case "TextView": classType = TextView.class; break;
+			case "Button": classType = Button.class; break;
 		}
 
-		return new View(ctx);
-
+		View v = (View) classType.getConstructor(Context.class).newInstance(ctx);
+		return parseAttributes(View.class.cast(v), xpp);
 	}
 
 	// Turn back now!
