@@ -246,6 +246,41 @@ public class Parx {
 			}
 		}
 
+		a = ""+xpp.getAttributeValue(null, "layout_margin");
+		if(logging) Log.d(LOG_TAG, "layout_margin:"+a);
+
+		if(a.length()>0&&!a.equals("null")){
+			if(a.endsWith("px")){
+				((ViewGroup.MarginLayoutParams) v.getLayoutParams()).setMargins(
+						(int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX,
+								Integer.parseInt(a.replace("px", "")),
+								Resources.getSystem().getDisplayMetrics())),
+						(int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX,
+								Integer.parseInt(a.replace("px", "")),
+								Resources.getSystem().getDisplayMetrics())),
+						(int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX,
+								Integer.parseInt(a.replace("px", "")),
+								Resources.getSystem().getDisplayMetrics())),
+						(int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX,
+								Integer.parseInt(a.replace("px", "")),
+								Resources.getSystem().getDisplayMetrics())));
+			}else if(a.endsWith("dp")){
+				((ViewGroup.MarginLayoutParams) v.getLayoutParams()).setMargins(
+						(int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+								Integer.parseInt(a.replace("dp", "")),
+								Resources.getSystem().getDisplayMetrics())),
+						(int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+								Integer.parseInt(a.replace("dp", "")),
+								Resources.getSystem().getDisplayMetrics())),
+						(int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+								Integer.parseInt(a.replace("dp", "")),
+								Resources.getSystem().getDisplayMetrics())),
+						(int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+								Integer.parseInt(a.replace("dp", "")),
+								Resources.getSystem().getDisplayMetrics())));
+			}
+		}
+
 		a = ""+xpp.getAttributeValue(null, "text");
 		if(logging) Log.d(LOG_TAG, "text:"+a);
 
