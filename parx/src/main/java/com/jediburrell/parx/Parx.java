@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -104,13 +105,14 @@ public class Parx {
 			case "ScrollView": classType = ScrollView.class; break;
 			case "LinearLayout": classType = LinearLayout.class; break;
 			case "RelativeLayout": classType = RelativeLayout.class; break;
+			case "EditText": classType = EditText.class; break;
 			case "ImageView": classType = ImageView.class; break;
 			case "TextView": classType = TextView.class; break;
 			case "Button": classType = Button.class; break;
 		}
 
 		View v = (View) classType.getConstructor(Context.class).newInstance(ctx);
-		return parseAttributes(View.class.cast(v), xpp);
+		return parseAttributes(v, xpp);
 	}
 
 	// Turn back now!
@@ -262,7 +264,7 @@ public class Parx {
 				int drawable = ctx.getResources().getIdentifier(a.replace("@", ""),
 						"color", ctx.getPackageName());
 
-				((TextView)v).setTextColor(ctx.getResources().getColor(drawable));
+				((TextView) v).setTextColor(ctx.getResources().getColor(drawable));
 			}else if(a.contains("#")){
 				((TextView)v).setTextColor(Color.parseColor(a));
 			}
