@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -179,10 +181,13 @@ public class Parx {
 				WIDTH = ViewGroup.LayoutParams.WRAP_CONTENT;
 			}else if(a.endsWith("px")){
 				ViewGroup.LayoutParams newLayoutParams = v.getLayoutParams();
-				WIDTH = Integer.parseInt(a.replace("px", ""));
+				WIDTH = (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX,
+						Integer.parseInt(a.replace("px", "")),
+						Resources.getSystem().getDisplayMetrics()));
 			}else if(a.endsWith("dp")){
-				WIDTH = (int) (Integer.parseInt(a.replace("dp", "")) *
-								Resources.getSystem().getDisplayMetrics().density);
+				WIDTH = (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+						Integer.parseInt(a.replace("dp", "")),
+						Resources.getSystem().getDisplayMetrics()));
 			}
 			if(logging) Log.d(LOG_TAG, "WIDTH SET TO: " + WIDTH);
 		}
@@ -196,34 +201,48 @@ public class Parx {
 			}else if(a.equals("wrap_content")){
 				HEIGHT = ViewGroup.LayoutParams.WRAP_CONTENT;
 			}else if(a.endsWith("px")){
-				HEIGHT = Integer.parseInt(a.replace("px", ""));
+				HEIGHT = (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX,
+						Integer.parseInt(a.replace("px", "")),
+						Resources.getSystem().getDisplayMetrics()));
 			}else if(a.endsWith("dp")){
-				HEIGHT = (int) (Integer.parseInt(a.replace("dp", "")) *
-						Resources.getSystem().getDisplayMetrics().density);
+				HEIGHT = (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+						Integer.parseInt(a.replace("dp", "")),
+						Resources.getSystem().getDisplayMetrics()));
 			}
 		}
 
-		v.setLayoutParams(new ViewGroup.LayoutParams(WIDTH, HEIGHT));
+		v.setLayoutParams(new ViewGroup.MarginLayoutParams(WIDTH, HEIGHT));
 
 		a = ""+xpp.getAttributeValue(null, "padding");
 		if(logging) Log.d(LOG_TAG, "padding:"+a);
 
 		if(a.length()>0&&!a.equals("null")){
 			if(a.endsWith("px")){
-				v.setPadding(Integer.parseInt(a.replace("px", "")),
+				v.setPadding((int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX,
 						Integer.parseInt(a.replace("px", "")),
-						Integer.parseInt(a.replace("px", "")),
-						Integer.parseInt(a.replace("px", ""))
-						);
+						Resources.getSystem().getDisplayMetrics())),
+						(int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX,
+								Integer.parseInt(a.replace("px", "")),
+								Resources.getSystem().getDisplayMetrics())),
+						(int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX,
+								Integer.parseInt(a.replace("px", "")),
+								Resources.getSystem().getDisplayMetrics())),
+						(int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX,
+								Integer.parseInt(a.replace("px", "")),
+								Resources.getSystem().getDisplayMetrics())));
 			}else if(a.endsWith("dp")){
-				v.setPadding((int) (Integer.parseInt(a.replace("dp", "")) * Resources.getSystem().getDisplayMetrics().density),
-						(int) (Integer.parseInt(a.replace("dp", ""))
-								* Resources.getSystem().getDisplayMetrics().density),
-						(int) (Integer.parseInt(a.replace("dp", ""))
-								* Resources.getSystem().getDisplayMetrics().density),
-						(int) (Integer.parseInt(a.replace("dp", ""))
-								* Resources.getSystem().getDisplayMetrics().density)
-				);
+				v.setPadding((int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+									Integer.parseInt(a.replace("dp", "")),
+									Resources.getSystem().getDisplayMetrics())),
+						(int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+								Integer.parseInt(a.replace("dp", "")),
+								Resources.getSystem().getDisplayMetrics())),
+						(int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+								Integer.parseInt(a.replace("dp", "")),
+								Resources.getSystem().getDisplayMetrics())),
+						(int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+								Integer.parseInt(a.replace("dp", "")),
+								Resources.getSystem().getDisplayMetrics())));
 			}
 		}
 
@@ -246,13 +265,11 @@ public class Parx {
 
 		if(a.length()>0&&!a.equals("null")){
 			if(a.contains("sp")){
-				((TextView)v).setTextSize(Integer.parseInt(a.replace("sp", ""))*
-						Resources.getSystem().getDisplayMetrics().scaledDensity);
+				((TextView)v).setTextSize(TypedValue.COMPLEX_UNIT_SP, Integer.parseInt(a.replace("sp", "")));
 			}else if(a.contains("dp")){
-				((TextView)v).setTextSize(Integer.parseInt(a.replace("dp", ""))*
-						Resources.getSystem().getDisplayMetrics().density);
+				((TextView)v).setTextSize(TypedValue.COMPLEX_UNIT_DIP, Integer.parseInt(a.replace("dp", "")));
 			}else if(a.contains("px")){
-				((TextView)v).setTextSize(Integer.parseInt(a.replace("px", "")));
+				((TextView)v).setTextSize(TypedValue.COMPLEX_UNIT_PX, Integer.parseInt(a.replace("px", "")));
 			}
 		}
 
