@@ -15,8 +15,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
-import android.widget.TableRow;
 import android.widget.TextView;
+
+import androidx.core.content.res.ResourcesCompat;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -24,8 +25,6 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.IOException;
 import java.io.StringReader;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -40,8 +39,8 @@ public class Parx {
 	private String LOG_TAG = "Parx";
 
 	private Context ctx;
-	private LinkedList<View> views = new LinkedList<View>();
-	private Map<String, Integer> ids = new HashMap<String, Integer>();
+	private LinkedList<View> views = new LinkedList<>();
+	private Map<String, Integer> ids = new HashMap<>();
 
 	private ImageLoader customImageLoader = null;
 
@@ -102,7 +101,7 @@ public class Parx {
 
 		String tag = xpp.getName();
 
-		Class classType = View.class;
+		Class<?> classType = View.class;
 		switch(tag) {
 			case "ScrollView": classType = ScrollView.class; break;
 			case "LinearLayout": classType = LinearLayout.class; break;
@@ -141,9 +140,9 @@ public class Parx {
 						"drawable", ctx.getPackageName());
 
 				if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-					v.setBackground(ctx.getResources().getDrawable(drawable));
+					v.setBackground(ResourcesCompat.getDrawable(ctx.getResources(), drawable, ctx.getTheme()));
 				else
-					v.setBackgroundDrawable(ctx.getResources().getDrawable(drawable));
+					v.setBackgroundDrawable(ResourcesCompat.getDrawable(ctx.getResources(), drawable, ctx.getTheme()));
 			} else if(a.contains("@color/")) {
 				int drawable = ctx.getResources().getIdentifier(a.replace("@", ""),
 						"color", ctx.getPackageName());
@@ -162,7 +161,7 @@ public class Parx {
 				int drawable = ctx.getResources().getIdentifier(a.replace("@", ""),
 						"drawable", ctx.getPackageName());
 
-				((ImageView) v).setImageDrawable(ctx.getResources().getDrawable(drawable));
+				((ImageView) v).setImageDrawable(ResourcesCompat.getDrawable(ctx.getResources(), drawable, ctx.getTheme()));
 			} else if(a.contains("//")) {
 				if(customImageLoader == null)
 					((ImageView) v).setImageURI(Uri.parse(a));
@@ -177,10 +176,7 @@ public class Parx {
 		if(a.length() > 0 && !a.equals("null")) {
 			if(a.equals("match_parent") || a.equals("fill_parent")) {
 				WIDTH = ViewGroup.LayoutParams.MATCH_PARENT;
-			} else if(a.equals("wrap_content")) {
-				WIDTH = ViewGroup.LayoutParams.WRAP_CONTENT;
 			} else if(a.endsWith("px")) {
-				ViewGroup.LayoutParams newLayoutParams = v.getLayoutParams();
 				WIDTH = (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX,
 						Integer.parseInt(a.replace("px", "")),
 						Resources.getSystem().getDisplayMetrics()));
@@ -198,8 +194,6 @@ public class Parx {
 		if(a.length() > 0 && !a.equals("null")) {
 			if(a.equals("match_parent") || a.equals("fill_parent")) {
 				HEIGHT = ViewGroup.LayoutParams.MATCH_PARENT;
-			} else if(a.equals("wrap_content")) {
-				HEIGHT = ViewGroup.LayoutParams.WRAP_CONTENT;
 			} else if(a.endsWith("px")) {
 				HEIGHT = (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX,
 						Integer.parseInt(a.replace("px", "")),
@@ -352,39 +346,51 @@ public class Parx {
 
 		a = "" + xpp.getAttributeValue(null, "alignParentStart");
 		if(logging) Log.d(LOG_TAG, "alignParentStart:" + a);
-		if(a.equals("true")) addOrRemoveProperty(v, RelativeLayout.ALIGN_PARENT_START, true);
+		if(a.equals("true")) {
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+				addOrRemoveProperty(v, RelativeLayout.ALIGN_PARENT_START);
+			} else {
+				addOrRemoveProperty(v, RelativeLayout.ALIGN_PARENT_LEFT);
+			}
+		}
 
 		a = "" + xpp.getAttributeValue(null, "layout_alignParentEnd");
 		if(logging) Log.d(LOG_TAG, "alignParentEnd:" + a);
-		if(a.equals("true")) addOrRemoveProperty(v, RelativeLayout.ALIGN_PARENT_END, true);
+		if(a.equals("true")) {
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+				addOrRemoveProperty(v, RelativeLayout.ALIGN_PARENT_END);
+			} else {
+				addOrRemoveProperty(v, RelativeLayout.ALIGN_PARENT_RIGHT);
+			}
+		}
 
 		a = "" + xpp.getAttributeValue(null, "layout_alignParentBottom");
 		if(logging) Log.d(LOG_TAG, "alignParentBottom:" + a);
-		if(a.equals("true")) addOrRemoveProperty(v, RelativeLayout.ALIGN_PARENT_BOTTOM, true);
+		if(a.equals("true")) addOrRemoveProperty(v, RelativeLayout.ALIGN_PARENT_BOTTOM);
 
 		a = "" + xpp.getAttributeValue(null, "layout_alignParentLeft");
 		if(logging) Log.d(LOG_TAG, "alignParentLeft:" + a);
-		if(a.equals("true")) addOrRemoveProperty(v, RelativeLayout.ALIGN_PARENT_LEFT, true);
+		if(a.equals("true")) addOrRemoveProperty(v, RelativeLayout.ALIGN_PARENT_LEFT);
 
 		a = "" + xpp.getAttributeValue(null, "layout_alignParentRight");
 		if(logging) Log.d(LOG_TAG, "alignParentRight:" + a);
-		if(a.equals("true")) addOrRemoveProperty(v, RelativeLayout.ALIGN_PARENT_RIGHT, true);
+		if(a.equals("true")) addOrRemoveProperty(v, RelativeLayout.ALIGN_PARENT_RIGHT);
 
 		a = "" + xpp.getAttributeValue(null, "layout_alignParentTop");
 		if(logging) Log.d(LOG_TAG, "alignParentTop:" + a);
-		if(a.equals("true")) addOrRemoveProperty(v, RelativeLayout.ALIGN_PARENT_TOP, true);
+		if(a.equals("true")) addOrRemoveProperty(v, RelativeLayout.ALIGN_PARENT_TOP);
 
 		a = "" + xpp.getAttributeValue(null, "layout_centerInParent");
 		if(logging) Log.d(LOG_TAG, "centerInParent:" + a);
-		if(a.equals("true")) addOrRemoveProperty(v, RelativeLayout.CENTER_IN_PARENT, true);
+		if(a.equals("true")) addOrRemoveProperty(v, RelativeLayout.CENTER_IN_PARENT);
 
 		a = "" + xpp.getAttributeValue(null, "layout_centerHorizontal");
 		if(logging) Log.d(LOG_TAG, "centerHorizontal:" + a);
-		if(a.equals("true")) addOrRemoveProperty(v, RelativeLayout.CENTER_HORIZONTAL, true);
+		if(a.equals("true")) addOrRemoveProperty(v, RelativeLayout.CENTER_HORIZONTAL);
 
 		a = "" + xpp.getAttributeValue(null, "layout_centerVertical");
 		if(logging) Log.d(LOG_TAG, "centerVertical:" + a);
-		if(a.equals("true")) addOrRemoveProperty(v, RelativeLayout.CENTER_VERTICAL, true);
+		if(a.equals("true")) addOrRemoveProperty(v, RelativeLayout.CENTER_VERTICAL);
 
 		a = "" + xpp.getAttributeValue(null, "orientation");
 		if(logging) Log.d(LOG_TAG, "orientation:" + a);
@@ -398,7 +404,7 @@ public class Parx {
 
 	// Thanks Hiren Patel
 	// Here's a hackish way to make it work.
-	private void addOrRemoveProperty(View view, int property, boolean flag) {
+	private void addOrRemoveProperty(View view, int property) {
 		RelativeLayout relativeLayout = null;
 		RelativeLayout.LayoutParams layoutParams;
 		if(view instanceof RelativeLayout) {
@@ -410,14 +416,8 @@ public class Parx {
 				layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
 						RelativeLayout.LayoutParams.WRAP_CONTENT);
 		}
-		if(flag) {
-			layoutParams.addRule(property);
-		} else {
-			if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
-				layoutParams.removeRule(property);
-			else
-				layoutParams.addRule(property, 0);
-		}
+
+		layoutParams.addRule(property);
 		
 		if(relativeLayout != null) {
 			relativeLayout.setLayoutParams(layoutParams);
@@ -427,7 +427,7 @@ public class Parx {
 		}
 	}
 
-	public abstract class ImageLoader {
+	public abstract static class ImageLoader {
 		public abstract void onUri(String uri, View view);
 	}
 
