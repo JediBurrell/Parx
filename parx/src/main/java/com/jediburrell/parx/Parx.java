@@ -162,10 +162,10 @@ public class Parx {
 				int drawable = ctx.getResources().getIdentifier(a.replace("@", ""),
 						"drawable", ctx.getPackageName());
 
-				((ImageView)v).setImageDrawable(ctx.getResources().getDrawable(drawable));
+				((ImageView) v).setImageDrawable(ctx.getResources().getDrawable(drawable));
 			}else if(a.contains("//")){
 				if(customImageLoader==null)
-					((ImageView)v).setImageURI(Uri.parse(a));
+					((ImageView) v).setImageURI(Uri.parse(a));
 				else
 					customImageLoader.onUri(a, v);
 			}
@@ -289,9 +289,9 @@ public class Parx {
 				int string = ctx.getResources().getIdentifier(a.replace("@", ""),
 						"string", ctx.getPackageName());
 
-				((TextView)v).setText(ctx.getResources().getString(string));
+				((TextView) v).setText(ctx.getResources().getString(string));
 			}else{
-				((TextView)v).setText(a);
+				((TextView) v).setText(a);
 			}
 		}
 
@@ -300,11 +300,11 @@ public class Parx {
 
 		if(a.length()>0&&!a.equals("null")){
 			if(a.contains("sp")){
-				((TextView)v).setTextSize(TypedValue.COMPLEX_UNIT_SP, Integer.parseInt(a.replace("sp", "")));
+				((TextView) v).setTextSize(TypedValue.COMPLEX_UNIT_SP, Integer.parseInt(a.replace("sp", "")));
 			}else if(a.contains("dp")){
-				((TextView)v).setTextSize(TypedValue.COMPLEX_UNIT_DIP, Integer.parseInt(a.replace("dp", "")));
+				((TextView) v).setTextSize(TypedValue.COMPLEX_UNIT_DIP, Integer.parseInt(a.replace("dp", "")));
 			}else if(a.contains("px")){
-				((TextView)v).setTextSize(TypedValue.COMPLEX_UNIT_PX, Integer.parseInt(a.replace("px", "")));
+				((TextView) v).setTextSize(TypedValue.COMPLEX_UNIT_PX, Integer.parseInt(a.replace("px", "")));
 			}
 		}
 
@@ -318,7 +318,35 @@ public class Parx {
 
 				((TextView) v).setTextColor(ctx.getResources().getColor(drawable));
 			}else if(a.contains("#")){
-				((TextView)v).setTextColor(Color.parseColor(a));
+				((TextView) v).setTextColor(Color.parseColor(a));
+			}
+		}
+
+		a = ""+xpp.getAttributeValue(null, "hint");
+		if(logging) Log.d(LOG_TAG, "hint:"+a);
+
+		if(a.length()>0&&!a.equals("null")){
+			if(a.contains("@string/")){
+				int string = ctx.getResources().getIdentifier(a.replace("@", ""),
+						"string", ctx.getPackageName());
+
+				((EditText) v).setHint(ctx.getResources().getString(string));
+			}else{
+				((TextView) v).setHint(a);
+			}
+		}
+
+		a = ""+xpp.getAttributeValue(null, "textColorHint");
+		if(logging) Log.d(LOG_TAG, "textColorHint:"+a);
+
+		if(a.length()>0&&!a.equals("null")){
+			if(a.contains("@color/")){
+				int drawable = ctx.getResources().getIdentifier(a.replace("@", ""),
+						"color", ctx.getPackageName());
+
+				((EditText) v).setHintTextColor(ctx.getResources().getColor(drawable));
+			}else if(a.contains("#")){
+				((EditText) v).setHintTextColor(Color.parseColor(a));
 			}
 		}
 
@@ -361,9 +389,9 @@ public class Parx {
 		a = ""+xpp.getAttributeValue(null, "orientation");
 		if(logging) Log.d(LOG_TAG, "orientation:"+a);
 		if(a.equals("vertical"))
-			((LinearLayout)v).setOrientation(LinearLayout.VERTICAL);
+			((LinearLayout) v).setOrientation(LinearLayout.VERTICAL);
 		else if(a.equals("horizontal"))
-			((LinearLayout)v).setOrientation(LinearLayout.HORIZONTAL);
+			((LinearLayout) v).setOrientation(LinearLayout.HORIZONTAL);
 
 		return v;
 	}
