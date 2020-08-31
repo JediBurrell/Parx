@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
+import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
@@ -18,6 +19,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.core.content.res.ResourcesCompat;
+import androidx.core.view.ViewCompat;
 
 import com.jediburrell.parx.viewparsers.TextViewParser;
 
@@ -127,8 +129,11 @@ public class Parx {
 
 		if(a.length()>0&&!a.equals("null")) {
 			if(a.startsWith("@+id/")) {
-				v.setId(new Random().nextInt(999999) + ids.size());
+				v.setId(ViewCompat.generateViewId());
 				ids.put(a.replace("@+id/", ""), v.getId());
+			} else if(TextUtils.isDigitsOnly(a)) {
+				v.setId(Integer.parseInt(a));
+				ids.put(a, v.getId());
 			}
 		}
 
