@@ -19,6 +19,8 @@ import android.widget.TextView;
 
 import androidx.core.content.res.ResourcesCompat;
 
+import com.jediburrell.parx.viewparsers.TextViewParser;
+
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -36,7 +38,7 @@ import java.util.Random;
 
 public class Parx {
 
-	private String LOG_TAG = "Parx";
+	public static final String LOG_TAG = "Parx";
 
 	private Context ctx;
 	private LinkedList<View> views = new LinkedList<>();
@@ -44,7 +46,7 @@ public class Parx {
 
 	private ImageLoader customImageLoader = null;
 
-	private boolean logging = true;
+	public static boolean logging = true;
 
 	public Parx(Context ctx) {
 		this.ctx = ctx;
@@ -116,7 +118,6 @@ public class Parx {
 		return parseAttributes(v, xpp);
 	}
 
-	// Turn back now!
 	private View parseAttributes(View v, XmlPullParser xpp) {
 
 		int WIDTH = ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -130,6 +131,10 @@ public class Parx {
 				ids.put(a.replace("@+id/", ""), v.getId());
 			}
 		}
+
+		TextViewParser.parseAttributes(ctx, v, xpp);
+
+		/// Root attributes, applies to any View.
 
 		a = "" + xpp.getAttributeValue(null, "background");
 		if(logging) Log.d(LOG_TAG, "background:" + a);
@@ -275,74 +280,7 @@ public class Parx {
 			}
 		}
 
-		a = "" + xpp.getAttributeValue(null, "text");
-		if(logging) Log.d(LOG_TAG, "text:" + a);
 
-		if(a.length() > 0 && !a.equals("null")) {
-			if(a.contains("@string/")) {
-				int string = ctx.getResources().getIdentifier(a.replace("@", ""),
-						"string", ctx.getPackageName());
-
-				((TextView) v).setText(ctx.getResources().getString(string));
-			} else {
-				((TextView) v).setText(a);
-			}
-		}
-
-		a = "" + xpp.getAttributeValue(null, "textSize");
-		if(logging) Log.d(LOG_TAG, "textSize:" + a);
-
-		if(a.length() > 0 && !a.equals("null")) {
-			if(a.contains("sp")) {
-				((TextView) v).setTextSize(TypedValue.COMPLEX_UNIT_SP, Integer.parseInt(a.replace("sp", "")));
-			} else if(a.contains("dp")) {
-				((TextView) v).setTextSize(TypedValue.COMPLEX_UNIT_DIP, Integer.parseInt(a.replace("dp", "")));
-			} else if(a.contains("px")) {
-				((TextView) v).setTextSize(TypedValue.COMPLEX_UNIT_PX, Integer.parseInt(a.replace("px", "")));
-			}
-		}
-
-		a = "" + xpp.getAttributeValue(null, "textColor");
-		if(logging) Log.d(LOG_TAG, "textColor:" + a);
-
-		if(a.length() > 0 && !a.equals("null")) {
-			if(a.contains("@color/")) {
-				int drawable = ctx.getResources().getIdentifier(a.replace("@", ""),
-						"color", ctx.getPackageName());
-
-				((TextView) v).setTextColor(ctx.getResources().getColor(drawable));
-			} else if(a.contains("#")) {
-				((TextView) v).setTextColor(Color.parseColor(a));
-			}
-		}
-
-		a = "" + xpp.getAttributeValue(null, "hint");
-		if(logging) Log.d(LOG_TAG, "hint:" + a);
-
-		if(a.length() > 0 && !a.equals("null")) {
-			if(a.contains("@string/")) {
-				int string = ctx.getResources().getIdentifier(a.replace("@", ""),
-						"string", ctx.getPackageName());
-
-				((EditText) v).setHint(ctx.getResources().getString(string));
-			} else {
-				((TextView) v).setHint(a);
-			}
-		}
-
-		a = "" + xpp.getAttributeValue(null, "textColorHint");
-		if(logging) Log.d(LOG_TAG, "textColorHint:" + a);
-
-		if(a.length() > 0 && !a.equals("null")) {
-			if(a.contains("@color/")) {
-				int drawable = ctx.getResources().getIdentifier(a.replace("@", ""),
-						"color", ctx.getPackageName());
-
-				((EditText) v).setHintTextColor(ctx.getResources().getColor(drawable));
-			} else if(a.contains("#")) {
-				((EditText) v).setHintTextColor(Color.parseColor(a));
-			}
-		}
 
 		a = "" + xpp.getAttributeValue(null, "alignParentStart");
 		if(logging) Log.d(LOG_TAG, "alignParentStart:" + a);
